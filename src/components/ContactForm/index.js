@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
-
 import { useState } from 'react';
+
+import isEmailValid from '../../utils/isEmailValid';
+
+import { Form, ButtonContainer } from './styles';
+
 import FormGroup from '../FormGroup';
 import Input from '../Input';
 import Select from '../Select';
 import Button from '../Button';
-
-import { Form, ButtonContainer } from './styles';
 
 export default function ContactForm({ buttonLabel }) {
   const [name, setName] = useState('');
@@ -30,31 +32,52 @@ export default function ContactForm({ buttonLabel }) {
     }
   };
 
-  console.log(errors);
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+
+    if (event.target.value && !isEmailValid(event.target.value)) {
+      const errorAlreadyExists = errors.find((error) => error.field === 'email');
+
+      if (errorAlreadyExists) {
+        return;
+      }
+
+      setErrors((prevState) => [
+        ...prevState,
+        { field: 'email', message: 'O formato do e-mail é inválido.' },
+      ]);
+    } else {
+      setErrors((prevState) => prevState.filter(
+        (error) => error.field !== 'email',
+      ));
+    }
+  };
+
+  function getErrorMessageByFieldName(fieldName) {
+    return errors.find((error) => error.field === fieldName)?.message;
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // console.log({
-    //   name, email, phone, category,
-    // });
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName('name')}>
         <Input
+          error={getErrorMessageByFieldName('name')}
           placeholder="Nome"
           value={name}
           onChange={handleNameChange}
         />
       </FormGroup>
 
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName('email')}>
         <Input
+          error={getErrorMessageByFieldName('email')}
           placeholder="E-mail"
           value={email}
-          onChange={(event) => setEmail(event.target.value)}
+          onChange={handleEmailChange}
         />
       </FormGroup>
 
