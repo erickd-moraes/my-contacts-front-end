@@ -23,6 +23,9 @@ export const Container = styled.div`
 
   h2 {
     font-size: 22px;
+    color: ${({ theme, danger }) => (
+    danger ? theme.colors.danger.main : theme.colors.gray.dark
+  )};
   }
 
   p {
@@ -43,5 +46,4 @@ export const Footer = styled.footer`
     border: none;
     margin-right: 8px;
   }
-
 `;
