@@ -50,23 +50,25 @@ export const Header = styled.header`
   }
 `;
 
-export const ListContainer = styled.header`
+export const ListHeader = styled.header`
   margin-top: 24px;
   margin-bottom: 8px;
 
-  header {
+  button {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
 
-    button {
-      display: flex;
-      align-items: center;
-      background: transparent;
-      border: none;
+    span {
+      font-weight: bold;
+      margin-right: 8px;
+      color: ${({ theme }) => theme.colors.primary.main};
+    }
 
-      span {
-        font-weight: bold;
-        margin-right: 8px;
-        color: ${({ theme }) => theme.colors.primary.main};
-      }
+    img {
+      transform: ${({ orderBy }) => (orderBy === 'asc' ? 'rotate(180deg)' : 'rotate(0deg)')};
+      transition: transform .2s ease-in;
     }
   }
 `;
