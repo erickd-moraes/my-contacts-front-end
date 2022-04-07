@@ -11,16 +11,21 @@ import trash from '../../assets/images/icons/trash.svg';
 
 import formatPhone from '../../utils/formatPhone';
 
+import Loader from '../../components/Loader';
+
 export default function Home() {
   const [contacts, setContacts] = useState([]);
   const [orderBy, setOrderBy] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isloading, setIsLoading] = useState(true);
 
   const filteredContacts = useMemo(() => contacts.filter((contact) => (
     contact.name.toLowerCase().includes(searchTerm.toLowerCase())
   )), [contacts, searchTerm]);
 
   useEffect(() => {
+    setIsLoading(true);
+
     fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
       .then(async (response) => {
         const json = await response.json();
@@ -28,6 +33,9 @@ export default function Home() {
       })
       .catch((error) => {
         console.log('error', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [orderBy]);
 
@@ -41,6 +49,8 @@ export default function Home() {
 
   return (
     <Container>
+      <Loader isloading={isloading} />
+
       <InputSearchContainer>
         <input
           type="text"
