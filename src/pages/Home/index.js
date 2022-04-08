@@ -12,6 +12,7 @@ import trash from '../../assets/images/icons/trash.svg';
 import formatPhone from '../../utils/formatPhone';
 
 import Loader from '../../components/Loader';
+import ContactService from '../../services/ContactService';
 
 export default function Home() {
   const [contacts, setContacts] = useState([]);
@@ -28,10 +29,8 @@ export default function Home() {
       try {
         setIsLoading(true);
 
-        const response = await fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`);
-
-        const json = await response.json();
-        setContacts(json);
+        const contactsList = await ContactService.listContacts(orderBy);
+        setContacts(contactsList);
       } catch (error) {
         console.log('error', error);
       } finally {
