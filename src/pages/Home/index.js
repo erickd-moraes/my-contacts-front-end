@@ -32,7 +32,7 @@ export default function Home() {
         const contactsList = await ContactService.listContacts(orderBy);
         setContacts(contactsList);
       } catch (error) {
-        console.log('error', error);
+        console.log(error);
       } finally {
         setIsLoading(false);
       }
@@ -89,7 +89,7 @@ export default function Home() {
               )}
             </div>
             <span>{contact.email}</span>
-            <span>{formatPhone(contact.phone)}</span>
+            {contact.phone && <span>{formatPhone(contact.phone)}</span>}
           </div>
 
           <div className="actions">
