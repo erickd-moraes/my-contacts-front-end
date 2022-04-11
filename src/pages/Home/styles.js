@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
@@ -29,6 +29,12 @@ export const Header = styled.header`
   align-items: center;
   justify-content: space-between;
   margin-top: 32px;
+
+  ${({ theme, hasError }) => (hasError && css`
+    justify-content: flex-end;
+    border-bottom: 2px solid ${theme.colors.gray.light};
+    padding-bottom: 16px;
+  `)}
 
   strong {
     font-size: 24px;
@@ -118,6 +124,23 @@ export const Card = styled.div`
       background: transparent;
       border: none;
       margin-left: 8px;
+    }
+  }
+`;
+
+export const ErrorContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+
+  .details {
+    margin-left: 24px;
+
+    strong {
+      display: block;
+      font-size: 22px;
+      color: ${({ theme }) => theme.colors.danger.main};
+      margin-bottom: 8px;
     }
   }
 `;
