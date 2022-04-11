@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
@@ -27,14 +27,10 @@ export const InputSearchContainer = styled.div`
 export const Header = styled.header`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: ${({ hasError }) => (hasError ? 'flex-end' : 'space-between')};
   margin-top: 32px;
-
-  ${({ theme, hasError }) => (hasError && css`
-    justify-content: flex-end;
-    border-bottom: 2px solid ${theme.colors.gray.light};
-    padding-bottom: 16px;
-  `)}
+  border-bottom: 2px solid ${({ theme }) => theme.colors.gray.lighter};
+  padding-bottom: 16px;
 
   strong {
     font-size: 24px;

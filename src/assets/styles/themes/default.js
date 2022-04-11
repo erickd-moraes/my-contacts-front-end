@@ -8,6 +8,7 @@ export default {
       dark: '#3346F0',
     },
     gray: {
+      lighter: 'rgba(188, 188, 188, 0.2)',
       light: '#BCBCBC',
       dark: '#222222',
     },
