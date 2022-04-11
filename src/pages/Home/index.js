@@ -25,9 +25,10 @@ import magnifierQuestion from '../../assets/images/magnifier-question.svg';
 
 import formatPhone from '../../utils/formatPhone';
 
+import ContactService from '../../services/ContactService';
+
 import Button from '../../components/Button';
 import Loader from '../../components/Loader';
-import ContactService from '../../services/ContactService';
 
 export default function Home() {
   const [contacts, setContacts] = useState([]);
